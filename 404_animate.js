@@ -1,5 +1,7 @@
 var canvas = document.getElementById("playground");
+document.getElementById("title").addEventListener("click",initial);
 var ctx = canvas.getContext("2d");
+
 var colors = ["#92e8b6","#92e8d9","#4aa5cf","#4ac7cf","#4acfa8","#4acf89","#24932e","#09f81f","#09f81f"];
 var courses = ["场","电荷载体","电势","电路","比特","逻辑","程序","处理器","数据","算法","数据包","网络","媒体","认知"];
 var isAlive = true;
@@ -15,26 +17,36 @@ var box = class{
         this.level = 0;
     }
     draw(){
+        
+        ctx.fillStyle = "rgba(0,0,0,0.9)";
+        ctx.fillRect(5+this.column*100,5+this.row*100,90,90);
         ctx.clearRect(5+this.column*100,5+this.row*100,90,90);
-        ctx.fillStyle = colors[this.level];
-        ctx.fillRect(this.x,this.y,this.width,this.height);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = colors[this.level];
+        ctx.strokeRect(this.x,this.y,this.width,this.height);
         ctx.font = this.width/4.5+"px Microsoft Yahei";
         console.log(ctx.font);
         ctx.textAlign = "center";
-        ctx.fillStyle = "#000000";
+        ctx.fillStyle = "#fff";
         ctx.fillText(courses[this.level],50+100*this.column,55+100*this.row);
         //console.log("hh");
     }
     plaindraw(){
-        ctx.fillStyle = colors[this.level];
-        ctx.fillRect(this.x-45,this.y-45,90,90);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = colors[this.level];
+        ctx.strokeRect(this.x-45,this.y-45,90,90);
         ctx.font = "20px Micirosoft Yahei";
         ctx.textAlign = "center";
-        ctx.fillStyle = "#000000";
+        ctx.fillStyle = "#fff";
         ctx.fillText(courses[this.level],50+100*this.column,55+100*this.row);
     }
     erase(){
-        ctx.clearRect(5+this.column*100,5+this.row*100,90,90);
+        //ctx.fillStyle = "rgba(0,0,0,0.9)";
+        //ctx.fillRect(this.column*100,this.row*100,100,100);
+        ctx.clearRect(1+this.column*100,1+this.row*100,98,98);
+        ctx.lineWidth = 3;
+        //ctx.strokeStyle = "#000";
+        //ctx.strokeRect(5+this.column*100,5+this.row*100,90,90);
     }
 }
 function Cmp(box1,box2){
@@ -60,16 +72,26 @@ function draw(){
     }
     
 };
-for(let item of allBox){
-    item.plaindraw();
-    //raf = window.requestAnimationFrame(draw);
-    //if(item.width>=90) window.cancelAnimationFrame(raf);
-}
-for(var i=0;i<4;i++){
-    for(var j=0;j<4;j++){
-        ctx.fillStyle = "#FAF2E8";
-        ctx.strokeRect(4+100*j,4+100*i,92,92);
+function initial(){
+    document.getElementById("title").innerHTML = "Tip: Use ↑ ↓ ← → to Combine the Same Two Blocks";
+    $(canvas).fadeIn(1000);
+    ctx.clearRect(0,0,400,400);
+    ctx.strokeStyle = "#c2b39d";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(0,0,400,400);
+    //for(var i=0;i<4;i++){
+    //    for(var j=0;j<4;j++){
+            //ctx.strokeStyle = "#000";
+            //ctx.lineWidth = 3;
+            //ctx.strokeRect(5+100*j,5+100*i,90,90);
+    //    }
+    //}
+    for(let item of allBox){
+        item.plaindraw();
+        //raf = window.requestAnimationFrame(draw);
+        //if(item.width>=90) window.cancelAnimationFrame(raf);
     }
+    canvas.removeEventListener("click",initial);
 }
 var randombox = new box(-1,-1);
 function generate(){
@@ -218,8 +240,8 @@ function gameover(){
     ctx.clearRect(0,0,400,400);
     ctx.font="30px Cambira";
     ctx.textAlign = "center";
-    ctx.fillStyle="#FAF2E8";
-    ctx.fillText("Which course are you in?",200,200);
-    ctx.fillText("[Smirk]",200,250);
+    ctx.fillStyle="#fff";
+    ctx.fillText("Game Over",200,200);
+    //ctx.fillText("[Smirk]",200,250);
     allBox.clear();
 }

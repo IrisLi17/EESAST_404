@@ -1,12 +1,80 @@
+*{
+    margin: 0;
+    padding: 0'
+}
 html{
-    background: rgba(2, 0, 2, 0.7);
-    color: #FAF2E8;
+    background: rgba(0,0,0,0.9);
+    color: whitesmoke;
+    font-family: 'Open Sans',sans-serif;
+    font-size: 16px;
+}
+div{
+    font: inherit;
+}
+.left,.right{
+    display: inline-block;
+    height: 23rem;
+    vertical-align: top;
+}
+.left{
+    width: 35vw;
+}
+.right{
+    width: 60vw;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+.right h1{
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+}
+.right div{
+    color: #8F8D8D;
+}
+.right ul,.right p{
+    margin: 1rem 0;
 }
 a{
+    display: block;
+    margin: 3rem 3rem;
+    font-size: 1.2rem;
     text-decoration: none;
     color: inherit;
 }
+a:hover{
+    color: #949292;
+}
 #title{
     font-size: 1.2rem;
-
+    text-align: center;
+    cursor: pointer;
+    margin: 1rem 0;
+}
+#title:hover{
+    color: #949292;
+}
+#start{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-55%,50%);
+    font-size: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #949292;
+    border: 2px solid #949292;
+    border-radius: 0.5rem;
+}
+#start:hover{
+    color: #fff;
+    border-color: #fff;
+}
+canvas{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
 }
