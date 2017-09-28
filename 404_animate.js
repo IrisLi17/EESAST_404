@@ -35,7 +35,7 @@ var box = class{
         ctx.strokeStyle = colors[this.level];
         ctx.strokeRect(this.x,this.y,this.width,this.height);
         ctx.font = this.width/4.5+"px Microsoft Yahei";
-        console.log(ctx.font);
+        //console.log(ctx.font);
         ctx.textAlign = "center";
         ctx.fillStyle = "#fff";
         ctx.fillText(courses[this.level],0.5*box_size+box_size*this.column,0.55*box_size+box_size*this.row);
@@ -61,6 +61,7 @@ var box = class{
 }
 function Cmp(box1,box2){
     if((box1.row*4+box1.column)<(box2.row*4+box2.column)) return -1;
+    else if((box1.row*4+box1.column)>(box2.row*4+box2.column)) return 1;
     else return 0;
 }
 //if(window.innerWidth>1000){
@@ -78,7 +79,7 @@ function draw(){
 }
     else{
         window.cancelAnimationFrame(raf);
-        console.log("cancel");
+        //console.log("cancel");
     }
     
 };
@@ -130,9 +131,10 @@ function generate(){
 
 }
 
-var temp = [];
+//var temp = [];
 var html = document.querySelector("html");
 function handleLeft(){
+    //handleLeft();
     for(i=0;i<4;i++){
         temp = [];
         for(let item of allBox){
@@ -142,6 +144,8 @@ function handleLeft(){
             }
         }
         temp.sort(Cmp);
+        console.log("sorted");
+        for(j=0;j<temp.length;j++)  console.log(temp[j].level);
         for(j=0;j<temp.length-1;j++){
             if(temp[j].level === temp[j+1].level){
                 temp[j].level+=1;
@@ -156,9 +160,9 @@ function handleLeft(){
         }
         //console.log(temp);
     }
-    generate();
 }
 function handleUp(){
+    //handleUp();
     for(i=0;i<4;i++){
         temp = [];
         for(let item of allBox){
@@ -168,6 +172,8 @@ function handleUp(){
             }
         }
         temp.sort(Cmp);
+        console.log("sorted");
+        for(j=0;j<temp.length;j++)  console.log(temp[j].level);
         for(j=0;j<temp.length-1;j++){
             if(temp[j].level === temp[j+1].level){
                 temp[j].level+=1;
@@ -180,10 +186,11 @@ function handleUp(){
             temp[j].y = box_size*temp[j].row+0.5*box_size;
             temp[j].plaindraw();
         }
+        //console.log(temp);
     }
-    generate();
 }
 function handleRight(){
+    //handleRight();
     for(i=0;i<4;i++){
         temp = [];
         for(let item of allBox){
@@ -193,6 +200,8 @@ function handleRight(){
             }
         }
         temp.sort(Cmp);
+        console.log("sorted");
+        for(j=0;j<temp.length;j++)  console.log(temp[j].level);
         for(j=temp.length-2;j>=0;j--){
             if(temp[j+1].level === temp[j].level){
                 temp[j+1].level+=1;
@@ -207,9 +216,9 @@ function handleRight(){
         }
         //console.log(temp);
     }
-    generate();
 }
 function handleDown(){
+    //handleDown();
     for(i=0;i<4;i++){
         temp = [];
         for(let item of allBox){
@@ -219,6 +228,8 @@ function handleDown(){
             }
         }
         temp.sort(Cmp);
+        console.log("sorted");
+        for(j=0;j<temp.length;j++)  console.log(temp[j].level);
         for(j=temp.length-2;j>=0;j--){
             if(temp[j+1].level === temp[j].level){
                 temp[j+1].level+=1;
@@ -231,8 +242,8 @@ function handleDown(){
             temp[j].y = box_size*temp[j].row+0.5*box_size;
             temp[j].plaindraw();
         }
+        //console.log(temp);
     }
-    generate();
 }
 if(window.innerWidth>1000){
 html.addEventListener("keydown",process = function(event){
@@ -244,27 +255,34 @@ html.addEventListener("keydown",process = function(event){
         //code
         event.preventDefault();
         handleLeft();
+        generate();
         console.log(allBox);
         break;
         case 38://up
         //code
         event.preventDefault();
         handleUp();
+        generate();
+        console.log(allBox);
         break;
         case 39://right
         //code
         event.preventDefault();
         handleRight();
+        generate();
         console.log(allBox);        
         break;
         case 40://down
         //code
         event.preventDefault();
         handleDown();
+        generate();
+        console.log(allBox);
     
         break;
         
     }
+    //console.log(allBox);
     if(!isAlive) gameover();    
 });
 }
@@ -273,21 +291,29 @@ else if(window.innerWidth>320){
         e.preventDefault();
         //left
         handleLeft();
+        generate();
+        if(!isAlive) gameover();
     });
     canvas.addEventListener("swipeRight",function(e){
         e.preventDefault();
         //right
         handleRight();
+        generate();
+        if(!isAlive) gameover();
     });
     canvas.addEventListener("swipeUp",function(e){
         e.preventDefault();
         //Up
         handleUp();
+        generate();
+        if(!isAlive) gameover();
     });
     canvas.addEventListener("swipeDown",function(e){
         e.preventDefault();
         //Down
         handleDown();
+        generate();
+        if(!isAlive) gameover();
     });
     
 }
